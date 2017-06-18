@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PDF Files</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		.header{
+			text-align: center;
+			margin-top: 20px;
+		}
+		.title{
+			text-transform: capitalize;
+			background-color: gray;
+			color: white;
+			font-family: consolas;
+			font-weight: bold;
+			font-size: 18pt;
+			padding: 15px;
+			border-radius: 5px;
+		}
+		li{
+			padding: 3px;
+			margin-bottom: 10px;
+			background-color: orange;
+			border-radius: 5px;
+			height: 25px;
+		}
+		li:nth-child(even){
+			padding: 3px;
+			background-color: pink;
+			border-radius: 5px;
+		}
+		a:visited{color:black;}
+		a{
+			text-decoration: none;
+			font-size: 12pt;
+			font-family: consolas;
+			font-weight: bold;
+			color:black;
+			padding: 3px;
+		}
+		#ul{
+			list-style: none;
+			padding-right: 50px;
+			padding-top: 30px;
+			padding-bottom: 30px;
+			margin-left: 5px;
+			margin-top: 20px;
+			background-color: gray;
+			border-radius: 10px;
+			width: 500px;
+		}
+	</style>
+	<script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+	<div class="header">
+		<span class="title">
+			tutoriels documents
+		</span>
+	</div>
+	<ul id="ul"></ul>
+	<script>
+		var socket = new io();
+		var ul = document.getElementById('ul');
+		socket.on('pdf files',function(files){
+			for (var i = 0; i < files.length; i++) {
+				var li = document.createElement('li'),
+					a = document.createElement('a');
+				a.href = files[i];
+				a.innerText = files[i];
+				li.appendChild(a);
+				ul.appendChild(li);
+			}
+		});
+	</script>
+</body>
+</html>
